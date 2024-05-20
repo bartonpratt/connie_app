@@ -1,6 +1,8 @@
 import 'dart:math';
+import 'package:connie_app/img_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 class RippleAnim extends StatefulWidget {
   @override
@@ -61,7 +63,9 @@ class _RippleAnimState extends State<RippleAnim>
                 width: 500,
                 height: 500,
               ),
-            ),
+            ),ElevatedButton(onPressed: (){
+              Get.to(()=>HomeScreen());
+            }, child: Text("Next"))
           ],
         ),
       ),

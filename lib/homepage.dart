@@ -1,6 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 import 'expandable_letter.dart';
 
@@ -24,13 +25,8 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             // Positioned images
             Positioned(
-              top: 200,
-              left: MediaQuery.of(context).size.width / 2 - 50,
-              child: Image.asset(
-                'assets/images/birthday-present.png', // replace with your image asset
-                width: 100,
-                height: 100,
-              ),
+              child:  Lottie.network(
+                  'https://lottie.host/dddcc030-136f-43cc-b9bb-a74cf8820d37/nms6Qo5k43.json'),
             ),
 
             Center(
