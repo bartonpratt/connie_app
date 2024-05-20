@@ -25,32 +25,41 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             // Positioned images
             Positioned(
-              child:  Lottie.network(
-                  'https://lottie.host/dddcc030-136f-43cc-b9bb-a74cf8820d37/nms6Qo5k43.json'),
+              top: 100.0, // Adjust the top value to move the Lottie animation down
+              left: 0,
+              right: 0,
+              child: Center(
+                child: Lottie.asset('assets/lottie files/cake_card.json'),
+              ),
             ),
-
-            Center(
-              child: SizedBox(
-                width: 250.0,
-                child: DefaultTextStyle(
-                  style: const TextStyle(
-                    fontSize: 30.0,
-                    fontFamily: 'Agne',
-                  ),
-                  child: AnimatedTextKit(
-                    animatedTexts: [
-                      TypewriterAnimatedText("To the Birthday Girl, Connie!'",
-                          speed: const Duration(milliseconds: 50)),
-                      TypewriterAnimatedText("You're in for a surprise😂😂"),
-                      WavyAnimatedText("Happy Birthday"),
-                      RotateAnimatedText("YOU"),
-                      RotateAnimatedText("ARE"),
-                      RotateAnimatedText("AWESOME!"),
-                    ],
-                    displayFullTextOnTap: true,
-                    onFinished: () {
-                      Get.to(() => ExpandableLetterWidget());
-                    },totalRepeatCount: 1,
+            Padding(
+              padding: const EdgeInsets.only(top: 300),
+              child: Center(
+                child: SizedBox(
+                  width: 250.0,
+                  child: DefaultTextStyle(
+                    style: const TextStyle(
+                      fontSize: 30.0,
+                      fontFamily: 'Agne',
+                    ),
+                    child: AnimatedTextKit(
+                      animatedTexts: [
+                        TypewriterAnimatedText("To the Birthday Girl, Connie!'",
+                            speed: const Duration(milliseconds: 50)),
+                        TypewriterAnimatedText("You're in for a surprise😂😂"),
+                        WavyAnimatedText("Happy Birthday"),
+                        RotateAnimatedText("YOU"),
+                        RotateAnimatedText("ARE"),
+                        RotateAnimatedText("AWESOME!"),
+                      ],
+                      displayFullTextOnTap: true,
+                      // onTap: (){
+                      //   Get.to(()=>AugmentedPage());
+                      // },
+                      onFinished: () {
+                        Get.to(() => ExpandableLetterWidget());
+                      },totalRepeatCount: 1,
+                    ),
                   ),
                 ),
               ),
