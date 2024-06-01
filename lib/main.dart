@@ -1,10 +1,13 @@
+import 'dart:io';
+
 import 'package:connie_app/expandable_letter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'homepage.dart';
 
-void main() {
+Future<void> main() async {
+
   runApp(const MyApp());
 }
 
@@ -27,7 +30,8 @@ class MyApp extends StatelessWidget {
         ),
         GetPage(
           name: '/expandable_letter',
-          page: () => const ExpandableLetterWidget(), // Define the route for ExpandableLetterWidget
+          page: () =>
+              const ExpandableLetterWidget(), // Define the route for ExpandableLetterWidget
         ),
       ],
     );

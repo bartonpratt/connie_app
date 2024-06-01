@@ -9,6 +9,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'chatbot_module/conniebot.dart';
+
+
+
 class ExpandableLetterWidget extends StatefulWidget {
   const ExpandableLetterWidget({super.key});
 
@@ -23,7 +27,12 @@ class _ExpandableLetterWidgetState extends State<ExpandableLetterWidget> {
       // Returning false ensures that the back button press is ignored
       return false;
     },
-      child: Scaffold(
+      child: Scaffold(  appBar: AppBar(
+        actions: [
+          IconButton(onPressed: (){
+          }, icon: Icon(Icons.menu))
+        ],
+      ),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
@@ -35,7 +44,11 @@ class _ExpandableLetterWidgetState extends State<ExpandableLetterWidget> {
                 '',
                 '',
               ),
-              SizedBox(height: 200),
+              SizedBox(height: 150),
+              ElevatedButton(onPressed: (){
+                Get.to(()=>GenerativeAISample()
+                );
+              }, child: Text('Chat here')),
               SizedBox(
                 width: 250.0,
                 child: DefaultTextStyle(

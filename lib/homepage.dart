@@ -53,9 +53,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         RotateAnimatedText("AWESOME!"),
                       ],
                       displayFullTextOnTap: true,
-                      // onTap: (){
-                      //   Get.to(()=>AugmentedPage());
-                      // },
+                      onTap: (){
+                        Get.to(()=>ExpandableLetterWidget());
+                      },
                       onFinished: () {
                         Get.to(() => ExpandableLetterWidget());
                       },totalRepeatCount: 1,
