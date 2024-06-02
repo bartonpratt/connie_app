@@ -2,7 +2,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import '../exports.dart';
 
-const String _apiKey = '';
+const String _apiKey = 'AIzaSyBTnSJCPY3G7ZGmQUm0ycE-aRomfsL2QGM';
 class GenerativeAISample extends StatelessWidget {
   const GenerativeAISample({super.key});
 
@@ -265,6 +265,11 @@ class _ChatWidgetState extends State<ChatWidget> {
   }
 
   Future<void> _sendChatMessage(String message) async {
+    if (message.trim().isEmpty) {
+      // Show an error message or handle the case of an empty message
+      return;
+    }
+
     setState(() {
       _loading = true;
     });
@@ -275,30 +280,23 @@ class _ChatWidgetState extends State<ChatWidget> {
         Content.text(message),
       );
       final text = response.text;
-      _generatedContent.add((text: text, fromUser: false));
-
-      if (text == null) {
-        _showError('No response from API.');
-        return;
+      if (text != null) {
+        _generatedContent.add((text: text, fromUser: false));
       } else {
-        setState(() {
-          _loading = false;
-          _scrollDown();
-        });
+        _showError('No response from API.');
       }
     } catch (e) {
       _showError(e.toString());
-      setState(() {
-        _loading = false;
-      });
     } finally {
       _textController.clear();
       setState(() {
         _loading = false;
       });
       _textFieldFocus.requestFocus();
+      _scrollDown();
     }
   }
+
 
   void _showError(String message) {
     showDialog<void>(
@@ -325,10 +323,10 @@ class _ChatWidgetState extends State<ChatWidget> {
 
 class MessageWidget extends StatelessWidget {
   const MessageWidget({
-    super.key,
+    Key? key,
     this.text,
     required this.isFromUser,
-  });
+  }) : super(key: key);
 
   final String? text;
   final bool isFromUser;
@@ -336,28 +334,37 @@ class MessageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment:
-          isFromUser ? MainAxisAlignment.end : MainAxisAlignment.start,
+      mainAxisAlignment: isFromUser
+          ? MainAxisAlignment.end
+          : MainAxisAlignment.start,
       children: [
         Flexible(
-            child: Container(
-                constraints: const BoxConstraints(maxWidth: 520),
-                decoration: BoxDecoration(
-                  color: isFromUser
-                      ? Theme.of(context).colorScheme.primaryContainer
-                      : Theme.of(context).colorScheme.surfaceContainerHighest,
-                  borderRadius: BorderRadius.circular(18),
-                ),
-                padding: const EdgeInsets.symmetric(
-                  vertical: 15,
-                  horizontal: 20,
-                ),
-                margin: const EdgeInsets.only(bottom: 8),
-                child: Column(children: [
-                  if (text case final text?) MarkdownBody(data: text),
-
-                ]))),
+          child: Container(
+            constraints: const BoxConstraints(maxWidth: 520),
+            decoration: BoxDecoration(
+              color: isFromUser
+                  ? Theme.of(context).colorScheme.primaryContainer
+                  : Theme.of(context).colorScheme.surfaceContainerHighest,
+              borderRadius: BorderRadius.circular(18),
+            ),
+            padding: const EdgeInsets.symmetric(
+              vertical: 15,
+              horizontal: 20,
+            ),
+            margin: const EdgeInsets.only(bottom: 8),
+            child: SelectableText(
+              text ?? '',
+              textAlign: isFromUser ? TextAlign.end : TextAlign.start,
+              style: TextStyle(
+                color: isFromUser
+                    ? Theme.of(context).colorScheme.onPrimary
+                    : Theme.of(context).colorScheme.onSurface,
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }
 }
+
