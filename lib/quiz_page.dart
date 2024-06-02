@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
+import 'package:provider/provider.dart';
+import 'app_provider.dart'; // Import the AppProvider
 import 'options_screen.dart';
 
 class DatePickerForm extends StatefulWidget {
@@ -27,11 +27,18 @@ class _DatePickerFormState extends State<DatePickerForm> {
     );
   }
 
-  void _submitForm() {
+  void _submitForm(BuildContext context) {
     if (_formKey.currentState!.validate()) {
-      if (_selectedMonth == DateTime.october && _selectedYear == 2020) {
+      if (_selectedMonth == 10 && _selectedYear == 2020) {
         _showSnackbar('Correct combination: October 2020');
-        Get.to(() => OptionsPage());
+        Provider.of<AppProvider>(context, listen: false).update(
+          selectedMonth: _selectedMonth,
+          selectedYear: _selectedYear,
+        );
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const OptionsPage()),
+        );
       } else {
         _showSnackbar('Incorrect combination: Please select October 2020.');
       }
@@ -40,84 +47,117 @@ class _DatePickerFormState extends State<DatePickerForm> {
 
   @override
   Widget build(BuildContext context) {
+    return Consumer<AppProvider>(
+        builder: (context, provider, _) {
+      if (provider.selectedMonth != null && provider.selectedYear != null) {
+        // Details are already stored, navigate to options page
+        WidgetsBinding.instance!.addPostFrameCallback((_) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const OptionsPage()),
+          );
+        });
+        // Return an empty container while waiting for navigation
+        return Container();
+      } else {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Date Picker Form'),
+        title: const Text('Date Picker Form'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         child: Form(
           key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text('Select Month:'),
-              SizedBox(height: 10),
-              DropdownButtonFormField<int>(
-                value: _selectedMonth,
-                onChanged: (int? value) {
-                  setState(() {
-                    _selectedMonth = value;
-                  });
-                },
-                items: List.generate(12, (index) {
-                  return DropdownMenuItem<int>(
-                    value: index + 1,
-                    child: Text(_getMonthName(index + 1)),
-                  );
-                }),
-                validator: (value) {
-                  if (value == null) {
-                    return 'Please select a month.';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 20),
-              Text('Select Year:'),
-              SizedBox(height: 10),
-              DropdownButtonFormField<int>(
-                value: _selectedYear,
-                onChanged: (int? value) {
-                  setState(() {
-                    _selectedYear = value;
-                  });
-                },
-                items: List.generate(30, (index) {
-                  return DropdownMenuItem<int>(
-                    value: DateTime.now().year - index,
-                    child: Text('${DateTime.now().year - index}'),
-                  );
-                }),
-                validator: (value) {
-                  if (value == null) {
-                    return 'Please select a year.';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 20),
-              Row(
-                children: [
-                  ElevatedButton(
-                    onPressed: _submitForm,
-                    child: Text('Submit'),
-                  ),
-                  SizedBox(width: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      _showSnackbar('Hint: Select October 2020.');
+          child: Consumer<AppProvider>(
+            builder: (context, provider, _) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  const Text('Select Month:'),
+                  const SizedBox(height: 10),
+                  DropdownButtonFormField<int>(
+                    value: _selectedMonth,
+                    onChanged: (int? month) {
+                      setState(() {
+                        _selectedMonth = month;
+                      });
                     },
-                    child: Text('Hint'),
+                    items: List.generate(12, (index) {
+                      return DropdownMenuItem<int>(
+                        value: index + 1,
+                        child: Text(_getMonthName(index + 1)),
+                      );
+                    }),
+                    validator: (value) {
+                      if (value == null) {
+                        return 'Please select a month.';
+                      }
+                      return null;
+                    },
                   ),
-                ],
-              ),
-            ],
+                  const SizedBox(height: 20),
+                  const Text('Select Year:'),
+                  const SizedBox(height: 10),
+                  DropdownButtonFormField<int>(
+                    value: _selectedYear,
+                    onChanged: (int? year) {
+                      setState(() {
+                        _selectedYear = year;
+                      });
+                    },
+                    items: List.generate(30, (index) {
+                      return DropdownMenuItem<int>(
+                        value: DateTime.now().year - index,
+                        child: Text('${DateTime.now().year - index}'),
+                      );
+                    }),
+                    validator: (value) {
+                      if (value == null) {
+                        return 'Please select a year.';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () => _submitForm(context),
+                        child: const Text('Submit'),
+                      ),
+                      const SizedBox(width: 20),
+                      ElevatedButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Dialog(
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width * 0.8,
+                                  height: MediaQuery.of(context).size.height * 0.8,
+                                  decoration: const BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage('assets/images/connie2_.png'), // Replace 'image.jpg' with your image asset
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        child: const Text('Hint?'),
+                      ),
+                    ],
+                  ),
+                                      ],
+              );
+            },
           ),
         ),
       ),
     );
-  }
+  }});}}
 
   String _getMonthName(int month) {
     switch (month) {
@@ -149,4 +189,4 @@ class _DatePickerFormState extends State<DatePickerForm> {
         return '';
     }
   }
-}
+

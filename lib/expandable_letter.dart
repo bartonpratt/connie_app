@@ -1,5 +1,8 @@
 
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:connie_app/app_provider.dart';
+import 'package:connie_app/homepage.dart';
+import 'package:provider/provider.dart';
 import 'exports.dart';
 
 
@@ -13,61 +16,71 @@ class ExpandableLetterWidget extends StatefulWidget {
 class _ExpandableLetterWidgetState extends State<ExpandableLetterWidget> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          const Expanded(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: 70),
-                    child: AnimCard(
-                      Color(0xffFF6594),
-                      '',
-                      '',
-                      '',
-                    ),
+
+
+          return Scaffold(
+          body: Column(
+            children: [
+              const Expanded(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 70),
+                        child: AnimCard(
+                          Color(0xffFF6594),
+                          '',
+                          '',
+                          '',
+                        ),
+                      ),
+
+
+                    ],
                   ),
+                ),
+              ),
+              SizedBox(
+                width: 250.0,
+                child: DefaultTextStyle(
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  child: AnimatedTextKit(
+                    animatedTexts: [
+                      FadeAnimatedText("don't!"),
+                      FadeAnimatedText("don't LOOK!!"),
+                      FadeAnimatedText("don't LOOK DOWN HERE!!!"),
+                    ],
+                    repeatForever: true,
+                    onTap: () {},
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
 
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                           DatePickerForm()));
+                },
+                child: const Text("Curious Huh?? Click Me😂"),
+              ),
+              const SizedBox(height: 20), // Add some space below the button
+            ],
+          ),
+              );
 
-                ],
-              ),
-            ),
-          ),
-          SizedBox(
-            width: 250.0,
-            child: DefaultTextStyle(
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 14.0,
-                fontWeight: FontWeight.bold,
-              ),
-              child: AnimatedTextKit(
-                animatedTexts: [
-                  FadeAnimatedText("don't!"),
-                  FadeAnimatedText("don't LOOK!!"),
-                  FadeAnimatedText("don't LOOK DOWN HERE!!!"),
-                ],
-                repeatForever: true,
-                onTap: () {},
-              ),
-            ),
-          ),
-          const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {
-              Get.to(() => DatePickerForm());
-            },
-            child: const Text("Curious Huh?? Click Me😂"),
-          ),
-          const SizedBox(height: 20), // Add some space below the button
-        ],
-      ),
-    );
   }
 }
+
+
 
 class AnimCard extends StatefulWidget {
   final Color color;

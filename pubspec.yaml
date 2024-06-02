@@ -49,6 +49,7 @@ dependencies:
   flutter_markdown: ^0.6.23
   pretty_animated_buttons: ^0.0.1
   shared_preferences: ^2.2.3
+  provider: ^6.1.2
 
 flutter_icons:
   android: "launcher_icon"

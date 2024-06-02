@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class DatePickerFormProvider extends ChangeNotifier {
+class AppProvider extends ChangeNotifier {
   int? _selectedMonth;
   int? _selectedYear;
   SharedPreferences? _preferences;
@@ -9,8 +9,8 @@ class DatePickerFormProvider extends ChangeNotifier {
   int? get selectedMonth => _selectedMonth;
   int? get selectedYear => _selectedYear;
 
-  static Future<DatePickerFormProvider> getInstance() async {
-    DatePickerFormProvider provider = DatePickerFormProvider();
+  static Future<AppProvider> getInstance() async {
+    AppProvider provider = AppProvider();
     provider._preferences = await SharedPreferences.getInstance();
     try {
       int? selectedMonth = provider._preferences?.getInt("selectedMonth");
