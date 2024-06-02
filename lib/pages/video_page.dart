@@ -14,8 +14,8 @@ class _VideoPageState extends State<VideoPage> {
   @override
   void initState() {
     super.initState();
-    videoPlayerController = VideoPlayerController.network(
-        '');
+    videoPlayerController = VideoPlayerController.asset(
+        'assets/video/connie.mp4');
     chewieController = ChewieController(
       videoPlayerController: videoPlayerController,
       autoPlay: true,
@@ -27,9 +27,7 @@ class _VideoPageState extends State<VideoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Video Player'),
-      ),
+
       body: Center(
         child: videoPlayerController.value.isInitialized
             ? Chewie(

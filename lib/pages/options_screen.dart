@@ -46,10 +46,7 @@ class _OptionsPageState extends State<OptionsPage> {
                       const Text('Select any to get started..'),
                       const SizedBox(height: 16,),
                       Container(
-                          height: MediaQuery
-                              .of(context)
-                              .size
-                              .width,
+                          height: 270,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.black), // Border color
                           borderRadius: BorderRadius.circular(12.0), // Border radius
@@ -74,12 +71,12 @@ class _OptionsPageState extends State<OptionsPage> {
                             const SizedBox(height: 20), // Add some space between buttons
                             PrettyWaveButton(
                               backgroundColor: Colors.blue,
-                              child: Row(
+                              child: const Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Image.asset('assets/logo/logo.png', height: 24.0), // Adjust the path and size as needed
-                                  const SizedBox(width: 10),
-                                  const Text(
+                                  Icon(Icons.image),
+                                  SizedBox(width: 10),
+                                  Text(
                                     'Img To Text Scanner',
                                     style: TextStyle(
                                       color: Colors.white,
