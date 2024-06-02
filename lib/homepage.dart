@@ -1,9 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
-import 'expandable_letter.dart';
+import 'exports.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -13,7 +11,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(onWillPop: () async {
+      // Returning false ensures that the back button press is ignored
+      return false;
+    },
+    child: Scaffold(
       body: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -24,16 +26,15 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Stack(
           children: [
             // Positioned images
+
             Positioned(
               top: 100.0, // Adjust the top value to move the Lottie animation down
               left: 0,
-              right: 0,
-              child: Center(
-                child: Lottie.asset('assets/lottie files/cake_card.json'),
-              ),
+              right: 0,bottom: 0,
+              child: Lottie.asset('assets/lottie files/cake_card.json'),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 300),
+              padding: const EdgeInsets.only(top: 8),
               child: Center(
                 child: SizedBox(
                   width: 250.0,
@@ -54,10 +55,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                       displayFullTextOnTap: true,
                       onTap: (){
-                        Get.to(()=>ExpandableLetterWidget());
+                        Get.off(() => const ExpandableLetterWidget());
                       },
                       onFinished: () {
-                        Get.to(() => ExpandableLetterWidget());
+                        Get.off(() => const ExpandableLetterWidget());
                       },totalRepeatCount: 1,
                     ),
                   ),
@@ -67,6 +68,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-    );
+    ));
   }
 }

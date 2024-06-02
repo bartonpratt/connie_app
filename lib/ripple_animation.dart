@@ -64,7 +64,7 @@ class _RippleAnimState extends State<RippleAnim>
                 height: 500,
               ),
             ),ElevatedButton(onPressed: (){
-              Get.to(()=>HomeScreen());
+              Get.to(()=>TextRecognizerPage());
             }, child: Text("Next"))
           ],
         ),

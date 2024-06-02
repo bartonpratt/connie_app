@@ -1,20 +1,10 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
-
-import 'dart:math';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:connie_app/quizpage.dart';
-import 'package:connie_app/ripple_animation.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import 'chatbot_module/conniebot.dart';
-
+import 'exports.dart';
 
 
 class ExpandableLetterWidget extends StatefulWidget {
-  const ExpandableLetterWidget({super.key});
+  const ExpandableLetterWidget({Key? key}) : super(key: key);
 
   @override
   _ExpandableLetterWidgetState createState() => _ExpandableLetterWidgetState();
@@ -23,59 +13,57 @@ class ExpandableLetterWidget extends StatefulWidget {
 class _ExpandableLetterWidgetState extends State<ExpandableLetterWidget> {
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(onWillPop: () async {
-      // Returning false ensures that the back button press is ignored
-      return false;
-    },
-      child: Scaffold(  appBar: AppBar(
-        actions: [
-          IconButton(onPressed: (){
-          }, icon: Icon(Icons.menu))
-        ],
-      ),
-        body: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            children: [
-              Padding(padding: EdgeInsets.only(top: 70)),
-              AnimCard(
-                Color(0xffFF6594),
-                '',
-                '',
-                '',
-              ),
-              SizedBox(height: 150),
-              ElevatedButton(onPressed: (){
-                Get.to(()=>GenerativeAISample()
-                );
-              }, child: Text('Chat here')),
-              SizedBox(
-                width: 250.0,
-                child: DefaultTextStyle(
-                  style: const TextStyle(color: Colors.black,
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.bold,
+    return Scaffold(
+      body: Column(
+        children: [
+          const Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 70),
+                    child: AnimCard(
+                      Color(0xffFF6594),
+                      '',
+                      '',
+                      '',
+                    ),
                   ),
-                  child: AnimatedTextKit(
-                    animatedTexts: [
-                      FadeAnimatedText("don't!"),
-                      FadeAnimatedText("don't LOOK!!"),
-                      FadeAnimatedText("don't LOOK DOWN HERE!!!"),
-                    ],
-                    repeatForever: true,
-                    onTap: () {},
-                  ),
-                ),
+
+
+                ],
               ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                  onPressed: () {
-                    Get.to(() => QuizAuth());
-                  },
-                  child: Text("Curious Huh?? Click Me😂"))
-            ],
+            ),
           ),
-        ),
+          SizedBox(
+            width: 250.0,
+            child: DefaultTextStyle(
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 14.0,
+                fontWeight: FontWeight.bold,
+              ),
+              child: AnimatedTextKit(
+                animatedTexts: [
+                  FadeAnimatedText("don't!"),
+                  FadeAnimatedText("don't LOOK!!"),
+                  FadeAnimatedText("don't LOOK DOWN HERE!!!"),
+                ],
+                repeatForever: true,
+                onTap: () {},
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () {
+              Get.to(() => DatePickerForm());
+            },
+            child: const Text("Curious Huh?? Click Me😂"),
+          ),
+          const SizedBox(height: 20), // Add some space below the button
+        ],
       ),
     );
   }
@@ -100,56 +88,54 @@ class _AnimCardState extends State<AnimCard> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            AnimatedPadding(
-              padding: EdgeInsets.only(top: padding, bottom: bottomPadding),
-              duration: const Duration(milliseconds: 1000),
-              curve: Curves.fastLinearToSlowEaseIn,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          AnimatedPadding(
+            padding: EdgeInsets.only(top: padding, bottom: bottomPadding),
+            duration: const Duration(milliseconds: 1000),
+            curve: Curves.fastLinearToSlowEaseIn,
+            child: Container(
+              child: CardItem(
+                widget.color,
+                widget.num,
+                widget.numEng,
+                widget.content,
+                () {
+                  setState(() {
+                    padding = padding == 0 ? 150.0 : 0.0;
+                    bottomPadding = bottomPadding == 0 ? 150 : 0.0;
+                  });
+                },
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Center(
               child: Container(
-                child: CardItem(
-                  widget.color,
-                  widget.num,
-                  widget.numEng,
-                  widget.content,
-                  () {
-                    setState(() {
-                      padding = padding == 0 ? 150.0 : 0.0;
-                      bottomPadding = bottomPadding == 0 ? 150 : 0.0;
-                    });
-                  },
+                margin: const EdgeInsets.only(right: 20, left: 20, top: 200),
+                height: 180,
+                width: MediaQuery.of(context).size.width > 850
+                    ? MediaQuery.of(context).size.width / 2
+                    : MediaQuery.of(context).size.width - 40,
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.black.withOpacity(0.2), blurRadius: 30)
+                  ],
+                  color: Colors.grey.shade200.withOpacity(1.0),
+                  borderRadius: const BorderRadius.vertical(
+                      bottom: Radius.circular(30)),
                 ),
+                child: Center(
+                    child: Icon(Icons.favorite,
+                        color: const Color(0xffFF6594).withOpacity(1.0),
+                        size: 70)),
               ),
             ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Center(
-                child: Container(
-                  margin: const EdgeInsets.only(right: 20, left: 20, top: 200),
-                  height: 180,
-                  width: MediaQuery.of(context).size.width > 850
-                      ? MediaQuery.of(context).size.width / 2
-                      : MediaQuery.of(context).size.width - 40,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black.withOpacity(0.2), blurRadius: 30)
-                    ],
-                    color: Colors.grey.shade200.withOpacity(1.0),
-                    borderRadius: const BorderRadius.vertical(
-                        bottom: Radius.circular(30)),
-                  ),
-                  child: Center(
-                      child: Icon(Icons.favorite,
-                          color: const Color(0xffFF6594).withOpacity(1.0),
-                          size: 70)),
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
