@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:connie_app/homepage.dart';
+import 'package:connie_app/pages/homepage.dart';
 import 'package:provider/provider.dart';
 
 import 'app_provider.dart';
@@ -27,8 +27,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Happy Birthday Connie',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+        colorScheme: ColorScheme.fromSeed(
+        brightness: Brightness.light,
+        seedColor: const Color.fromARGB(255, 171, 222, 244),
+    )),
       debugShowCheckedModeBanner: false,
       home: MyHomePage(),
 

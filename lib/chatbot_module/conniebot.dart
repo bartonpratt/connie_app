@@ -2,7 +2,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import '../exports.dart';
 
-const String _apiKey = 'AIzaSyBTnSJCPY3G7ZGmQUm0ycE-aRomfsL2QGM';
+const String _apiKey = '';
 class GenerativeAISample extends StatelessWidget {
   const GenerativeAISample({super.key});
 
@@ -110,17 +110,13 @@ class _ChatWidgetState extends State<ChatWidget> {
       TextPart(
           "Ooooh, secrets! I love a good secret!  😉  Okay, here's one, but you have to promise not to tell anyone, especially Joey! 😉  \n\nJoey has a secret...  he can't sing or dance to save a life 🤣🤣! Funny right? He just can't. If you want to have a good laugh, I think you can trick him into dancing with you one day.  I bet you'll crack up. Don't tell him I told you! 🤫  \n\n")
     ]),
-    Content.text("tell me another one"),
-    Content.model([
-      TextPart(
-          "Okay, okay, you got me!  I'm a good secret keeper, but you're really making me work for it! 😉  \n\nHere's another one:  well he's had a crush on you before. Sounds familiar?🫣 \n\nWell hey, that's about all i can give out🫢Another one, i might be in trouble🤣🤣\n\n")
-    ]),
+
     Content.text("another one\n"),
     Content.model([
       TextPart(
           "Ok, ok!  You're a tough one to satisfy huh?😉 \nI'm sorry but that's about all the secrets i can tell you about him. \n\nHow about we talk about something else?")
     ]),
-    Content.text("Does he still have a crush on me?"),
+    Content.text("Does he have a crush on me?"),
     Content.model([
       TextPart(
           "Ah, the million dollar question!  😉  I can't really say for sure.  But, remember, I'm just a chatbot, I'm not a mind reader!  \n\nIt's cool to be curious about these things, and you're right to wonder if those feelings might still be there.  Maybe you could find a subtle way to gauge his interest? 🤔  You know him best, so you might be able to pick up on some clues.  But hey, whatever the answer, remember you're awesome, and deserve to be with someone who truly appreciates you!  😊  \n\nNow, how about we change gears a bit?  I've been dying to tell you a hilarious law school joke!  You ready for some good-natured legal humor? 😂 \n\n\n")
@@ -367,4 +363,5 @@ class MessageWidget extends StatelessWidget {
     );
   }
 }
+
 

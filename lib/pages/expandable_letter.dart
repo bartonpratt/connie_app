@@ -1,9 +1,9 @@
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:connie_app/app_provider.dart';
-import 'package:connie_app/homepage.dart';
+import 'package:connie_app/pages/homepage.dart';
 import 'package:provider/provider.dart';
-import 'exports.dart';
+import '../exports.dart';
 
 
 class ExpandableLetterWidget extends StatefulWidget {

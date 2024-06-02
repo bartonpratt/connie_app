@@ -1,7 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:lottie/lottie.dart';
 
-import 'exports.dart';
+import '../exports.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
