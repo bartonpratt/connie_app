@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:chewie/chewie.dart';
-import 'package:video_player/video_player.dart';
+import 'package:connie_app/exports.dart';
 
 class VideoPage extends StatefulWidget {
+  const VideoPage({super.key});
+
   @override
   _VideoPageState createState() => _VideoPageState();
 }
@@ -33,7 +33,7 @@ class _VideoPageState extends State<VideoPage> {
             ? Chewie(
           controller: chewieController,
         )
-            : CircularProgressIndicator(),
+            : const CircularProgressIndicator(),
       ),
     );
   }

@@ -27,6 +27,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Happy Birthday Connie',
       theme: ThemeData(
+          fontFamily: 'Roboto',
+          fontFamilyFallback: const ['Noto Emoji'],
         colorScheme: ColorScheme.fromSeed(
         brightness: Brightness.light,
         seedColor: const Color.fromARGB(255, 171, 222, 244),

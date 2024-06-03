@@ -1,10 +1,5 @@
 import 'dart:io';
-
-import 'package:camera/camera.dart';
-import 'package:flutter/material.dart';
-import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'result_screen.dart';
+import '../exports.dart';
 
 class TextRecognizerPage extends StatefulWidget {
   const TextRecognizerPage({super.key});
@@ -95,7 +90,7 @@ class _TextRecognizerPageState extends State<TextRecognizerPage> with WidgetsBin
                         onPressed: _scanImage,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Theme.of(context).primaryColor,
-                          padding: EdgeInsets.symmetric(vertical: 15),
+                          padding: const EdgeInsets.symmetric(vertical: 15),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
@@ -104,7 +99,7 @@ class _TextRecognizerPageState extends State<TextRecognizerPage> with WidgetsBin
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             if (isLoading)
-                              SizedBox(
+                              const SizedBox(
                                 height: 21,
                                 width: 21,
                                 child: CircularProgressIndicator(
@@ -113,10 +108,10 @@ class _TextRecognizerPageState extends State<TextRecognizerPage> with WidgetsBin
                                 ),
                               ),
                             if (isLoading)
-                              SizedBox(
+                              const SizedBox(
                                 width: 20,
                               ),
-                            Text("Scan Text",
+                            const Text("Scan Text",
                                 style: TextStyle(
                                   fontSize: 18,
                                 )),

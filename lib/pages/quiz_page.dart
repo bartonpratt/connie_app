@@ -1,12 +1,9 @@
 import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../app_provider.dart'; // Import the AppProvider
-import 'options_screen.dart';
+import '../exports.dart';
 
 class DatePickerForm extends StatefulWidget {
+  const DatePickerForm({super.key});
+
   @override
   _DatePickerFormState createState() => _DatePickerFormState();
 }
@@ -57,7 +54,7 @@ class _DatePickerFormState extends State<DatePickerForm> {
     return Consumer<AppProvider>(builder: (context, provider, _) {
       if (provider.selectedMonth != null && provider.selectedYear != null) {
         // Details are already stored, navigate to options page
-        WidgetsBinding.instance!.addPostFrameCallback((_) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const OptionsPage()),
@@ -89,7 +86,7 @@ class _DatePickerFormState extends State<DatePickerForm> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Great!You're here",
+                    const Text("Great! You're here",
                         style: TextStyle(fontSize: 18, color: Colors.white)),
                     const Text(
                       "When did we meet for the first time?",
@@ -201,9 +198,21 @@ class _DatePickerFormState extends State<DatePickerForm> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       ElevatedButton(
+                                        style: ButtonStyle(
+                                          backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                            RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(15.0),
+                                            ),
+                                          ),
+                                        ),
                                         onPressed: () => _submitForm(context),
-                                        child: const Text('Submit'),
+                                        child: const Text(
+                                          "Submit",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
                                       ),
+
                                       const SizedBox(width: 20),
                                       TextButton(
                                         onPressed: () {

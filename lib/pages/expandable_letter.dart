@@ -1,13 +1,10 @@
 
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:connie_app/app_provider.dart';
-import 'package:connie_app/pages/homepage.dart';
-import 'package:provider/provider.dart';
 import '../exports.dart';
 
 
 class ExpandableLetterWidget extends StatefulWidget {
-  const ExpandableLetterWidget({Key? key}) : super(key: key);
+  const ExpandableLetterWidget({super.key});
 
   @override
   _ExpandableLetterWidgetState createState() => _ExpandableLetterWidgetState();
@@ -62,16 +59,28 @@ class _ExpandableLetterWidgetState extends State<ExpandableLetterWidget> {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                  ),
+                ),
                 onPressed: () {
-
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                           DatePickerForm()));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DatePickerForm(),
+                    ),
+                  );
                 },
-                child: const Text("Curious Huh?? Click Me😂"),
+                child: const Text(
+                  "Curious Huh?? Click Me😂",
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
+
               const SizedBox(height: 20), // Add some space below the button
             ],
           ),
@@ -202,22 +211,14 @@ class CardItem extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                "You're really special, and I'm so appreciative of our friendship. Wishing you an amazing day full of happiness, love, and all of your favorite things. Here's a toast to an amazing year ahead!",
+                "You're really special, and I'm so appreciative of our friendship. Wishing you an amazing day full of happiness, love, and all of your favorite things. Here's a toast to an amazing year ahead! -Joey",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              Text(
-                "-Joey",
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
+
             ],
           ),
         ),

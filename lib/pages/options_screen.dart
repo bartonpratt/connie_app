@@ -1,13 +1,10 @@
-import 'package:connie_app/pages/video_page.dart';
-import 'package:provider/provider.dart';
-
-import '../app_provider.dart';
 import '../exports.dart';
 import 'homepage.dart';
-import 'img_scan.dart';
+
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class OptionsPage extends StatefulWidget {
-  const OptionsPage({super.key});
+  const OptionsPage({Key? key});
 
   @override
   State<OptionsPage> createState() => _OptionsPageState();
@@ -17,10 +14,10 @@ class _OptionsPageState extends State<OptionsPage> {
   @override
   Widget build(BuildContext context) {
     return Consumer<AppProvider>(
-        builder: (context, provider, _) {
-      if (provider.selectedMonth == null || provider.selectedYear == null) {
-        return MyHomePage(); // Change to your desired widget or screen
-      }
+      builder: (context, provider, _) {
+        if (provider.selectedMonth == null || provider.selectedYear == null) {
+          return MyHomePage(); // Change to your desired widget or screen
+        }
         return Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -29,7 +26,7 @@ class _OptionsPageState extends State<OptionsPage> {
                 onPressed: () {
                   Provider.of<AppProvider>(context, listen: false).reset();
                 },
-                icon: Icon(Icons.restore),
+                icon: const Icon(Icons.restore),
               ),
             ],
           ),
@@ -38,69 +35,68 @@ class _OptionsPageState extends State<OptionsPage> {
               Expanded(
                 child: Center(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center, // Center vertically
+                    mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(height:70,child: Image.asset('assets/images/bot.png')),
+                      SizedBox(height: 70, child: Image.asset('assets/images/bot.png')),
                       const Text('Awesome😂!'),
                       const Text('Select any to get started..'),
                       const SizedBox(height: 16,),
                       Container(
-                          height: 270,
+                        height: 270,
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black), // Border color
-                          borderRadius: BorderRadius.circular(12.0), // Border radius
+                          border: Border.all(color: Colors.black),
+                          borderRadius: BorderRadius.circular(12.0),
                         ),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center, // Center vertically
-                          crossAxisAlignment: CrossAxisAlignment.center, // Center horizontally
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            PrettyShadowButton(label: 'ConnieBot',
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                      const GenerativeAISample()));
-                            },
-                            icon: Icons.reddit_rounded,
-                            shadowColor: Colors.pink,
-
-
-                            ),
-                            const SizedBox(height: 20), // Add some space between buttons
-                            PrettyWaveButton(
-                              backgroundColor: Colors.blue,
-                              child: const Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Icon(Icons.image),
-                                  SizedBox(width: 10),
-                                  Text(
-                                    'Img To Text Scanner',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=> const TextRecognizerPage()));
-                              },
-                            ),
-                            SizedBox(height: 16,),
-                            PrettyShadowButton(label: 'find out',
+                            PrettyShadowButton(duration: Durations.extralong4,elevation: 3,
+                              label: 'ConnieBot',
                               onPressed: () {
                                 Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                        VideoPage()));
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const GenerativeAISample(),
+                                  ),
+                                );
                               },
-                              icon: Icons.emoji_emotions,
+                              icon: Icons.reddit_rounded,
                               shadowColor: Colors.pink,
-
-
+                            ),
+                            const SizedBox(height: 20), // Add some space between buttons
+                            if (!kIsWeb) // Conditionally show the button if not running on web
+                              PrettyWaveButton(duration: Durations.extralong4,waveLength: 4,
+                                backgroundColor: Colors.blue,
+                                child: const Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(Icons.image),
+                                    SizedBox(width: 10),
+                                    Text(
+                                      'Img To Text Scanner',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=> const TextRecognizerPage()));
+                                },
+                              ),
+                            const SizedBox(height: 16,),
+                            PrettyNeumorphicButton(duration: Durations.extralong4,
+                              label: 'find out',
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const VideoPage(),
+                                  ),
+                                );
+                              },
                             ),
 
                           ],
@@ -113,7 +109,7 @@ class _OptionsPageState extends State<OptionsPage> {
             ],
           ),
         );
-      }
+      },
     );
   }
 }
